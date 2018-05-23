@@ -1,0 +1,11 @@
+module.exports = {
+    entry:  __dirname + "/app/main.js", // 已多次提及的唯一入口文件
+    output: {
+        path: __dirname + "/public", // 打包后的文件存放的地方
+        filename: "qiniu.js", // 打包后输出文件的文件名
+    },
+    node: {
+        fs: 'empty', // 声明js文件运行环境不包含fs，需要将fs一同打包到js文件
+        'child_process':'empty',
+    }
+};

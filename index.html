@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <title>上传示例</title>
+</head>
+<body>
+<form method="post" action="http://up-z2.qiniu.com" enctype="multipart/form-data">
+    <input name="token" type="hidden" id="token">
+    <input name="key" type="hidden" value="20170820222333.jpg">
+    <input name="file" type="file">
+    <input type="submit" value="上传">
+</form>
+</body>
+<script src="public/qiniu.js"></script>
+<script>
+    let accessKey = '*****';
+    let secretKey = '*****';
+    let bucket = '****';
+    let mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
+
+    let keyToOverwrite = '***.jpg';
+    let putPolicy = new qiniu.rs.PutPolicy({
+        scope: bucket + ":" + keyToOverwrite
+    });
+    console.log(putPolicy);
+    let uploadToken = putPolicy.uploadToken(mac);
+    console.log(uploadToken);
+    document.getElementById("token").setAttribute("value",uploadToken);
+</script>
+</html>
